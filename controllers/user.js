@@ -1,7 +1,8 @@
 exports.login = (req, res) => {
 
+    console.log(req.body)
     const { userName, pass } = req.body
-    if (!userName || !passWord)
+    if (!userName || !pass)
         res.status(400).json({ err: "feilds req" })
 
     const isActive = Users.find(x => x.passWord === pass&&x.firstName==userName)

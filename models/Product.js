@@ -1,14 +1,21 @@
 
+const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema(
   {
     title: {
-      trim: true
+      type: String,
+      trim: true,
+      required: true
     },
     price: {
-      min: 0
+      type: Number,
+      min: 0,
+      required: true
     },
     stock: {
-      min: 0
+      type: Number,
+      min: 0,
+      required: true
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,9 +25,12 @@ const productSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
     }
-  },
-  {
-    timestamps: true 
+
   }
 );
+module.exports = mongoose.model('Product', productSchema);
