@@ -1,6 +1,8 @@
 const User = require("../models/User")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken') 
+const hashedPwd = await bcrypt.hash(password, 10);
+const user = await User.create({ username, password: hashedPwd, role });
 const register = async (req, res, next) => {
    try {
 
@@ -38,8 +40,8 @@ const login = async (req, res,next) => {
    if (!match) return res.status(401).json({message: 'Unauthorized' })
 
 const userInfo = {
- username: foundUser.username,password:foundUser.password,role:foundUser.role
- 
+   username: foundUser.username,
+   role: foundUser.role // הוספת התפקיד לטוקן
 }
 const accessToken =jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
 res.json({  accessToken })
